@@ -1,15 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import App from './components/App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Galeria from "./components/galeria/Galeria";
+import Home from './components/home/Home';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+        <Route path="" element={<Home />}></Route>
+          <Route path="galeria" element={<Galeria />}></Route>
+          <Route path="home" element={<Home />}></Route>
+        </Route>
+
+        <Route path="*" element={<App />}></Route>
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
