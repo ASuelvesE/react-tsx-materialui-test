@@ -1,17 +1,10 @@
-import React, { useEffect, useState } from 'react';
+
 import './App.css';
 import { Outlet } from "react-router-dom";
-import { Theme, ThemeProvider } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
 import theme from "./temaConfig";
 import NavBar from './nav/NavBar';
-import { makeStyles } from '@mui/styles';
 
-interface Sub {
-  id: string,
-  email: string,
-  id_activision: number,
-  foto?: string
-}
 
 
 function App() {
