@@ -73,7 +73,7 @@ const Form: React.FC = () => {
                 onChange={handleEmailChange}
                 required
             />
-            <label>Otros:</label>
+            <label>Otross:</label>
             <textarea
                 value={state.otros}
                 onChange={handleOtrosChange}
