@@ -3,7 +3,7 @@ name: Sincronización con Máquina en clouding.io
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
