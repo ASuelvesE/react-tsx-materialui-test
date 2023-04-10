@@ -15,6 +15,9 @@ jobs:
 
       - name: Instalar dependencias
         run: npm i --force
+        
+      - name: Print MI_CONTRASENA_SECRETA
+        run: echo $MI_CONTRASENA_SECRETA
 
       - name: Copiar repositorio completo a la máquina en clouding.io
         env:
