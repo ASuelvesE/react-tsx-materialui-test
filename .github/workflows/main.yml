@@ -17,7 +17,7 @@ jobs:
         run: npm i --force
         
       - name: Print MI_CONTRASENA_SECRETA
-        run: echo $MI_CONTRASENA_SECRETA
+        run: echo ${{ env.PASSWORD }}
 
       - name: Copiar repositorio completo a la máquina en clouding.io
         env:
