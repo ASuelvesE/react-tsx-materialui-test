@@ -4,6 +4,7 @@ import React, { useReducer, useState } from 'react';
 interface FormState {
     name: string;
     email: string;
+    otros: string;
 }
 // Definimos las acciones posibles para el reducer
 interface FormAction {
@@ -13,6 +14,7 @@ interface FormAction {
 const initialState: FormState = {
     name: '',
     email: '',
+    otros: ''
 };
 // Función reductora
 function formReducer(state: FormState, action: FormAction): FormState {
@@ -21,6 +23,8 @@ function formReducer(state: FormState, action: FormAction): FormState {
             return { ...state, name: action.payload };
         case 'UPDATE_EMAIL':
             return { ...state, email: action.payload };
+        case 'UPDATE_OTROS':
+                return { ...state, otros: action.payload };
         case 'RESTART_INPUTS':
             return initialState;
         default:
@@ -41,35 +45,41 @@ const Form: React.FC = () => {
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch({ type: 'UPDATE_EMAIL', payload: event.target.value });
     };
-
+    const handleOtrosChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        dispatch({ type: 'UPDATE_OTROS', payload: event.target.value });
+    }
     // Función para manejar el envío del formulario
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        dispatch({ type: 'RESTART_INPUTS', payload: ''})
+        dispatch({ type: 'RESTART_INPUTS', payload: '' })
         console.log('Formulario enviado:', state);
     };
 
     return (
         <form onSubmit={handleSubmit}>
             <br /><br />
-            <label>
-                Nombre:
-                <input
-                    type="text"
-                    value={state.name}
-                    onChange={handleNameChange}
-                    required
-                />
-            </label>
-            <label>
-                Correo electrónico:
-                <input
-                    type="email"
-                    value={state.email}
-                    onChange={handleEmailChange}
-                    required
-                />
-            </label>
+            <label>Nombre:</label>
+            <input
+                type="text"
+                value={state.name}
+                onChange={handleNameChange}
+                required
+            />
+
+            <label>Correo electrónico:</label>
+            <input
+                type="email"
+                value={state.email}
+                onChange={handleEmailChange}
+                required
+            />
+            <label>Otros:</label>
+            <textarea
+                value={state.otros}
+                onChange={handleOtrosChange}
+                required
+            />
+
             <button type="submit">Enviar</button>
         </form>
     );
