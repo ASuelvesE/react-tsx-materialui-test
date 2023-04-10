@@ -16,19 +16,32 @@ jobs:
       - name: Instalar dependencias
         run: npm i --force
 
-      - name: Copiar repositorio completo a la máquina en clouding.io
-        env:
-          IP: 161.22.44.43
-          USER: root
-          PASSWORD: ${{ secrets.MI_CONTRASENA_SECRETA }}
+      # Ejecutar instalación de sshpass
+      - name: Instalar sshpass
         run: |
+          sudo apt-get update
           sudo apt-get install -y sshpass
-          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r ./* ${{ env.USER }}@${{ env.IP }}:/pruebas/
-          # Ejecutar comando remoto y almacenar el resultado en una variable
-          RESULT=$(sshpass -p ${{ env.PASSWORD }} ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ env.USER }}@${{ env.IP }} "chmod -R 755 /pruebas; echo \$?")  
-          # Verificar si el resultado es igual a 0, lo que significa que el comando se ejecutó correctamente
+          
+      # Verificar que sshpass esté instalado correctamente
+      - name: Verificar instalación de sshpass
+        run: |
+          if ! command -v sshpass &> /dev/null; then
+            echo "Error: sshpass no está instalado correctamente"
+            exit 1
+          fi
+
+      # Ejecutar el comando scp y el comando remoto
+      - name: Ejecutar scp y comando remoto
+        run: |
+          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r ./* root@161.22.44.43:/pruebas/
+          RESULT=$(sshpass -p ${{ secrets.MI_CONTRASENA_SECRETA }} ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@161.22.44.43 "chmod -R 755 /pruebas; echo \$?")  
+
+      # Verificar el resultado del comando remoto
+      - name: Verificar resultado del comando remoto
+        run: |
           if [[ $RESULT -eq 0 ]]; then
             echo "La contraseña proporcionada es correcta"
           else
             echo "La contraseña proporcionada es incorrecta"
+            exit 1
           fi
