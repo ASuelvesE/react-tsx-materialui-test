@@ -25,4 +25,4 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y sshpass
           scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r ./* ${{ env.USER }}@${{ env.IP }}:/pruebas/
-          sshpass -p ${{ env.PASSWORD }} ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ env.USER }}@${{ env.IP }} "chmod -R 755 /pruebas"
+          sshpass -p ${{ env.PASSWORD }} ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ env.USER }}@${{ env.IP }} "chmod -R 755 /pruebas" 2>&1 | grep -q "Permission denied" && echo "La contraseña proporcionada es incorrecta" || echo "La contraseña proporcionada es correcta"
