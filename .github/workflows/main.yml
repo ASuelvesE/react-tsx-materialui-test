@@ -25,7 +25,8 @@ jobs:
       # Verificar que sshpass esté instalado correctamente
       - name: Verificar instalación de sshpass
         run: |
-          if ! command -v sshpass &> /dev/null; then
+          sshpass --version
+          if ! command -v sshpass > /dev/null 2>&1; then
             echo "Error: sshpass no está instalado correctamente"
             exit 1
           fi
