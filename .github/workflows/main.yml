@@ -25,4 +25,4 @@ jobs:
           PASSWORD: ${{ secrets.MI_CONTRASENA_SECRETA }} # Utiliza un secreto en lugar de una variable de entorno para proteger la contraseña
         run: |
           scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r ./* root@${{ env.IP }}:/root/pruebas/ # Utiliza la variable de entorno IP para la dirección IP
-          sshpass -p ${{ env.PASSWORD }} ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${{ env.IP }} "chmod -R 755 /root/home/pruebas" # Utiliza la variable de entorno PASSWORD para la contraseña
+          sshpass -p ${{ env.PASSWORD }} ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${{ env.IP }} "chmod -R 755 /root/pruebas" # Utiliza la variable de entorno PASSWORD para la contraseña
