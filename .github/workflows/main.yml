@@ -1,0 +1,25 @@
+name: Sincronización con Máquina en clouding.io
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v2
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Copiar repositorio completo a la máquina en clouding.io
+        env:
+          IP: 161.22.44.43
+          PASSWORD: ${{ secrets.MI_CONTRASENA_SECRETA }} # Utiliza un secreto en lugar de una variable de entorno para proteger la contraseña
+        run: |
+          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r ./* root@${{ env.IP }}:/root/pruebas/ # Utiliza la variable de entorno IP para la dirección IP
+          sshpass -p ${{ env.PASSWORD }} ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${{ env.IP }} "chmod -R 755 /root/home/pruebas" # Utiliza la variable de entorno PASSWORD para la contraseña
