@@ -15,14 +15,14 @@ jobs:
 
       - name: Instalar dependencias
         run: npm i --force
-        
-      - name: Print MI_CONTRASENA_SECRETA
-        run: echo ${{ secrets.MI_CONTRASENA_SECRETA }}
 
       - name: Copiar repositorio completo a la máquina en clouding.io
         env:
           IP: 161.22.44.43
-          PASSWORD: ${{ secrets.MI_CONTRASENA_SECRETA }} # Utiliza un secreto en lugar de una variable de entorno para proteger la contraseña
+          USER: root
+          PASSWORD: ${{ secrets.MI_CONTRASENA_SECRETA }}
         run: |
-          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r ./* root@${{ env.IP }}:/pruebas/ # Utiliza la variable de entorno IP para la dirección IP y copia a la carpeta pruebas en la raíz
-          sshpass -p ${{ env.PASSWORD }} ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${{ env.IP }} "chmod -R 755 /pruebas" # Utiliza la variable de entorno PASSWORD para la contraseña y cambia los permisos en la carpeta pruebas
+          sudo apt-get update
+          sudo apt-get install -y sshpass
+          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r ./* ${{ env.USER }}@${{ env.IP }}:/pruebas/
+          sshpass -p ${{ env.PASSWORD }} ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ env.USER }}@${{ env.IP }} "chmod -R 755 /pruebas"
