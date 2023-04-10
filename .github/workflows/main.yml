@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Instalar dependencias
-        run: npm ci
+        run: npm i --force
 
       - name: Copiar repositorio completo a la máquina en clouding.io
         env:
