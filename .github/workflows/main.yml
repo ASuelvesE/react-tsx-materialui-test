@@ -13,9 +13,6 @@ jobs:
       - name: Checkout del repositorio
         uses: actions/checkout@v2
 
-      - name: Instalar dependencias
-        run: npm i --force
-
       - name: Instalar sshpass
         run: |
           sudo apt-get update
