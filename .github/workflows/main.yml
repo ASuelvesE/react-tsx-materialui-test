@@ -30,8 +30,7 @@ jobs:
 
       - name: Ejecutar scp y comando remoto
         run: |
-          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r ./* root@161.22.44.43:/pruebas/
-          sshpass -p ${{ secrets.MI_CONTRASENA_SECRETA }} ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@161.22.44.43 "chmod -R 755 /pruebas"
+          sshpass -p fPes3VjKf72tygrs scp -r root@161.22.44.43:/pruebas C:\Users\angel.suelves\prueba.txt
           
       - name: Verificar resultado del comando remoto
         run: |
