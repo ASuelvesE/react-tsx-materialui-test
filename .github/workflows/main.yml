@@ -30,7 +30,7 @@ jobs:
 
       - name: Ejecutar scp y comando remoto
         run: |
-          sshpass -p "fPes3VjKf72tygrs" scp -r ./* root@161.22.44.43:/pruebas
+          sshpass -p ${{ secrets.MI_CONTRASENA_SECRETA }} scp -r ./* root@161.22.44.43:/pruebas
           
       - name: Verificar resultado del comando remoto
         run: |
